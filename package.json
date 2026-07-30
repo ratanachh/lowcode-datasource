@@ -49,7 +49,7 @@
     "xima": "^0.2.15"
   },
   "engines": {
-    "node": ">=12.0.0"
+    "node": ">=24"
   },
   "tnpm": {
     "mode": "yarn",
