@@ -56,5 +56,8 @@
     "lockfile": "enable"
   },
   "name": "ali-lowcode-datasource",
-  "repository": "git@github.com:alibaba/lowcode-datasource.git"
+  "repository": "git@github.com:alibaba/lowcode-datasource.git",
+  "resolutions": {
+    "@types/node": "16.18.96"
+  }
 }

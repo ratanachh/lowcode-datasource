@@ -1,7 +1,7 @@
 import {
   IDataSourceRuntimeContext,
   IDataSourceEngine
-} from '@alilc/lowcode-types';
+} from '@rchh/lowcode-types';
 
 export class MockContext<TState extends Record<string, unknown> = Record<string, unknown>>
   implements IDataSourceRuntimeContext<TState> {

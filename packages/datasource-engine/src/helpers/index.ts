@@ -6,7 +6,7 @@ import {
   RuntimeOptionsConfig,
   UrlParamsHandler,
   WillFetch,
-} from '@alilc/lowcode-types';
+} from '@rchh/lowcode-types';
 
 // 默认的 dataSourceItem 的 dataHandler
 export const defaultDataHandler: DataHandler = async <T = unknown>(response: { data: T }) => response.data;

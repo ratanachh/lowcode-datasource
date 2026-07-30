@@ -4,7 +4,7 @@ import {
   IDataSourceRuntimeContext,
   RuntimeDataSource,
   RuntimeDataSourceStatus,
-} from '@alilc/lowcode-types';
+} from '@rchh/lowcode-types';
 import sinon from 'sinon';
 
 import { bindRuntimeContext, MockContext } from '../../_helpers';

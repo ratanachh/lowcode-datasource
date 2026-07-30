@@ -1,5 +1,5 @@
 {
-  "name": "@alilc/lowcode-datasource-engine",
+  "name": "@rchh/lowcode-datasource-engine",
   "version": "1.2.1",
   "description": "DataSource Engine for lowcode",
   "main": "dist/index.js",
@@ -19,8 +19,8 @@
     "prepublishOnly": "npm run build"
   },
   "dependencies": {
-    "@alilc/lowcode-datasource-types": "^1.2.1",
-    "@alilc/lowcode-types": "^1.3.0",
+    "@rchh/lowcode-datasource-types": "^1.2.1",
+    "@rchh/lowcode-types": "npm:@alilc/lowcode-types@^1.3.0",
     "lodash": "^4.17.21",
     "tslib": "^2.0.1"
   },

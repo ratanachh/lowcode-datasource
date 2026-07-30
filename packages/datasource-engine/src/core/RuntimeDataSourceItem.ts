@@ -8,7 +8,7 @@ import {
   RuntimeDataSourceStatus,
   RuntimeOptionsConfig,
   UrlParamsHandler,
-} from '@alilc/lowcode-types';
+} from '@rchh/lowcode-types';
 
 class RuntimeDataSourceItem<TParams extends Record<string, unknown> = Record<string, unknown>, TResultData = unknown>
   implements IRuntimeDataSource<TParams, TResultData> {

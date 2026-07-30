@@ -9,7 +9,7 @@ import {
   RequestHandlersMap,
   RuntimeDataSource,
   RuntimeDataSourceConfig,
-} from '@alilc/lowcode-types';
+} from '@rchh/lowcode-types';
 import { getRequestHandler } from '../helpers';
 
 /**

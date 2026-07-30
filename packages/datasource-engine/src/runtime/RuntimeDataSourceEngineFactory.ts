@@ -6,7 +6,7 @@ import {
   RuntimeDataSourceConfig,
   RuntimeDataSource,
   DataHandler,
-} from '@alilc/lowcode-types';
+} from '@rchh/lowcode-types';
 
 import { RuntimeDataSourceItem } from '../core';
 import { reloadDataSourceFactory } from '../core/reloadDataSourceFactory';

@@ -28,7 +28,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [1.0.1](https://github.com/alibaba/lowcode-datasource/compare/v1.0.0...v1.0.1) (2022-03-17)
 
-**Note:** Version bump only for package @alilc/lowcode-datasource-types
+**Note:** Version bump only for package @rchh/lowcode-datasource-types
 
 
 
@@ -58,7 +58,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [1.0.0](https://gitlab.alibaba-inc.com/ali-lowcode/ali-lowcode-datasource/compare/v1.0.0-beta.0...v1.0.0) (2022-02-15)
 
-**Note:** Version bump only for package @alilc/lowcode-datasource-types
+**Note:** Version bump only for package @rchh/lowcode-datasource-types
 
 
 

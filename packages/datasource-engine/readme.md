@@ -1,4 +1,4 @@
-## 关于 @alilc/lc-datasource-engine
+## 关于 @rchh/lc-datasource-engine
 
 低代码引擎数据源核心代码
 
@@ -14,12 +14,12 @@
 
 ```ts
 // 面向运行时渲染，直接给 schema
-import { create } from '@alilc/lowcode-datasource-engine/interpret'; 
+import { create } from '@rchh/lowcode-datasource-engine/interpret'; 
 
 // 面向出码，需要给处理过后的内容
-import { create } from '@alilc/lowcode-datasource-engine/runtime'; 
+import { create } from '@rchh/lowcode-datasource-engine/runtime'; 
 
-import { createFetchHandler } from '@alilc/lowcode-datasource-fetch-handler';
+import { createFetchHandler } from '@rchh/lowcode-datasource-fetch-handler';
 
 import { createMtopHandler } from '@alilc/lowcode-datasource-mtop-handler';
 

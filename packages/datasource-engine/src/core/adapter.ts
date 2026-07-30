@@ -7,9 +7,9 @@ import {
   InterpretDataSource,
   InterpretDataSourceConfig,
   RuntimeDataSourceConfig,
-} from '@alilc/lowcode-types';
+} from '@rchh/lowcode-types';
 
-import { ExtraConfig } from '@alilc/lowcode-datasource-types';
+import { ExtraConfig } from '@rchh/lowcode-datasource-types';
 
 
 import { defaultDataHandler, defaultWillFetch } from '../helpers';

@@ -1,4 +1,4 @@
-import { RuntimeDataSource } from '@alilc/lowcode-types';
+import { RuntimeDataSource } from '@rchh/lowcode-types';
 
 export const DEFAULT_USER_DATA = { id: 0, name: 'guest' }; // 返回一个兜底的数据
 

@@ -1,4 +1,4 @@
-import { RuntimeOptionsConfig } from '@alilc/lowcode-datasource-types';
+import { RuntimeOptionsConfig } from '@rchh/lowcode-datasource-types';
 
 import request from 'universal-request';
 import { RequestOptions, AsObject } from 'universal-request/lib/types';

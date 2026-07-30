@@ -1,4 +1,4 @@
-import { DataSourceMap, RuntimeDataSource, RuntimeDataSourceConfig } from '@alilc/lowcode-types';
+import { DataSourceMap, RuntimeDataSource, RuntimeDataSourceConfig } from '@rchh/lowcode-types';
 import { promiseSettled } from '../helpers';
 
 export const reloadDataSourceFactory = (

@@ -8,9 +8,9 @@ import {
   IPublicTypeJSExpression,
   IPublicTypeJSFunction,
   RuntimeOptionsConfig,
-} from '@alilc/lowcode-types';
+} from '@rchh/lowcode-types';
 
-import { CompositeValue, JSONObject } from '@alilc/lowcode-datasource-types';
+import { CompositeValue, JSONObject } from '@rchh/lowcode-datasource-types';
 
 function isObject(obj: unknown) {
   return Object.prototype.toString.call(obj).indexOf('Object') !== -1;

@@ -1,4 +1,4 @@
-import { DataHandler } from '@alilc/lowcode-types';
+import { DataHandler } from '@rchh/lowcode-types';
 
 export type ExtraConfig = {
   defaultDataHandler?: DataHandler;

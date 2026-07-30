@@ -5,7 +5,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [1.2.1](https://github.com/alibaba/lowcode-datasource/compare/v1.2.0...v1.2.1) (2024-09-24)
 
-**Note:** Version bump only for package @alilc/lowcode-datasource-jsonp-handler
+**Note:** Version bump only for package @rchh/lowcode-datasource-jsonp-handler
 
 
 
@@ -13,7 +13,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [1.2.0](https://github.com/alibaba/lowcode-datasource/compare/v1.1.4...v1.2.0) (2024-07-03)
 
-**Note:** Version bump only for package @alilc/lowcode-datasource-jsonp-handler
+**Note:** Version bump only for package @rchh/lowcode-datasource-jsonp-handler
 
 
 
@@ -21,7 +21,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ## [1.0.1](https://github.com/alibaba/lowcode-datasource/compare/v1.0.0...v1.0.1) (2022-03-17)
 
-**Note:** Version bump only for package @alilc/lowcode-datasource-jsonp-handler
+**Note:** Version bump only for package @rchh/lowcode-datasource-jsonp-handler
 
 
 
@@ -51,7 +51,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 # [1.0.0](https://gitlab.alibaba-inc.com/ali-lowcode/ali-lowcode-datasource/compare/v1.0.0-beta.0...v1.0.0) (2022-02-15)
 
-**Note:** Version bump only for package @alilc/lowcode-datasource-jsonp-handler
+**Note:** Version bump only for package @rchh/lowcode-datasource-jsonp-handler
 
 
 

@@ -9,7 +9,7 @@
 * engine： engine 主要分 2 类，一类是面向 render 引擎的，可以从 engine/interpret 引入，一类是面向出码或者说直接单纯使用数据源引擎的场景，可以从 engine/runtime 引入，代码如下
 
 ```js
-import { createInterpret, createRuntime } from '@alilc/lowcode-datasource-engine'; 
+import { createInterpret, createRuntime } from '@rchh/lowcode-datasource-engine'; 
 ```
 
 create 方法定义如下

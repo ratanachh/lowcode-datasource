@@ -1,4 +1,4 @@
-import { RuntimeDataSource } from '@alilc/lowcode-types';
+import { RuntimeDataSource } from '@rchh/lowcode-types';
 
 // 这里仅仅是数据源部分的:
 // @see: https://yuque.antfin-inc.com/mo/spec/spec-low-code-building-schema#XMeF5

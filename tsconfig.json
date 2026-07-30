@@ -32,8 +32,8 @@
     "skipLibCheck": true,
     "baseUrl": "./packages",
     "paths": {
-      "@alilc/lowcode-*": ["./*/src"],
-      "@alilc/visualengine": ["./vision-preset/src"]
+      "@rchh/lowcode-*": ["./*/src"],
+      "@rchh/visualengine": ["./vision-preset/src"]
     },
     "outDir": "lib"
   },

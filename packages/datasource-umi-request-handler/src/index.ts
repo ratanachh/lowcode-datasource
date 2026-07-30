@@ -1,4 +1,4 @@
-import { RuntimeOptionsConfig } from '@alilc/lowcode-datasource-types';
+import { RuntimeOptionsConfig } from '@rchh/lowcode-datasource-types';
 
 import request from 'umi-request';
 import { RequestOptionsInit, RequestResponse } from 'umi-request/types';
