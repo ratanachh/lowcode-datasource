@@ -16,7 +16,7 @@ export class MockContext<TState extends Record<string, unknown> = Record<string,
   ) {
     this._dataSourceEngine = _createDataSourceEngine(this);
 
-    // 自定义方法
+    // Custom methods
     Object.assign(this, _customMethods);
   }
 

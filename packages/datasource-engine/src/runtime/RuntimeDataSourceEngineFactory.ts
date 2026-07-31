@@ -28,7 +28,7 @@ export default (
 ) => {
   const { requestHandlersMap } = extraConfig;
 
-  // TODO: 对于出码类型，需要做一层数据兼容，给一些必要的值设置默认值,先兜底几个必要的
+  // TODO: For codegen types, add data compatibility and set defaults for required fields; cover a few essentials first
   dataSource.list.forEach((ds) => {
     ds.isInit = (
       typeof ds.isInit === 'function'

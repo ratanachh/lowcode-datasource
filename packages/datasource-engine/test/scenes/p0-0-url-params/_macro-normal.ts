@@ -28,7 +28,7 @@ export const normalScene: Macro<
   };
 
   const urlParamsHandler = sinon.fake(async () => {
-    return URL_PARAMS; // TODO: 别的都是返回的套了一层 data 的，但是 urlParams 的为啥不一样？
+    return URL_PARAMS; // TODO: others return a wrapped { data }, why is urlParams different?
   });
 
   const context = new MockContext<Record<string, unknown>>({}, (ctx) =>
@@ -41,28 +41,28 @@ export const normalScene: Macro<
 
   const setState = sinon.spy(context, 'setState');
 
-  // 一开始应该是初始状态
+  // Should start in initial state
   t.is(context.dataSourceMap.urlParams.status, RuntimeDataSourceStatus.Initial);
 
   const loading = context.reloadDataSource();
 
   await Promise.all([clock.runAllAsync(), loading]);
 
-  // 最后应该成功了，loaded 状态
+  // Should finally succeed with loaded status
   t.is(context.dataSourceMap.urlParams.status, RuntimeDataSourceStatus.Loaded);
 
-  // 检查数据源的数据
+  // Check datasource data
   t.deepEqual(context.dataSourceMap.urlParams.data, URL_PARAMS);
   t.deepEqual(context.dataSourceMap.urlParams.error, undefined);
 
-  // 检查状态数据
+  // Check state data
   t.assert(setState.callCount > 0);
   t.deepEqual(context.state.urlParams, URL_PARAMS);
 
-  // fetchHandler 应该被调用了一次
+  // fetchHandler should have been called once
   t.assert(urlParamsHandler.calledOnce);
 
-  // 检查调用参数 url 没有 options
+  // Check call args; urlParams has no options
   t.deepEqual(urlParamsHandler.firstCall.args, [context]);
 };
 

@@ -38,31 +38,31 @@ export const abnormalScene: Macro<
 
   const setState = sinon.spy(context, 'setState');
 
-  // 一开始应该是初始状态
+  // Should start in initial state
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Initial);
 
   const loading = context.reloadDataSource();
 
   await clock.tickAsync(50);
 
-  // 中间应该有 loading 态
+  // Should have a loading state in between
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Loading);
 
   await Promise.all([clock.runAllAsync(), loading]);
 
-  // 最后应该失败了，error 状态
+  // Should finally fail with error status
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Error);
 
-  // 检查数据源的数据
+  // Check datasource data
   t.deepEqual(context.dataSourceMap.user.data, undefined);
   t.not(context.dataSourceMap.user.error, undefined);
   t.regex(context.dataSourceMap.user.error!.message, new RegExp(ERROR_MSG));
 
-  // 检查状态数据
+  // Check state data
   t.deepEqual(setState.callCount, 1);
   t.deepEqual(context.state.user, undefined);
 
-  // fetchHandler 不应该被调
+  // fetchHandler should not have been called
   t.assert(fetchHandler.calledOnce);
 };
 

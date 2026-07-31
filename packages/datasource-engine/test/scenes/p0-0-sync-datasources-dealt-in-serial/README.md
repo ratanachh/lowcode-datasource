@@ -1,3 +1,3 @@
-# 关于此场景
+# About this scene
 
-有些场景下，多个数据源之间有依赖关系，这时候可以将其都设置为 `isSync: true`, 这样这些数据源就会按配置面板的顺序进行串行调用。
+In some scenes, multiple datasources depend on each other. Setting them all to `isSync: true` makes them run serially in the order configured in the panel.

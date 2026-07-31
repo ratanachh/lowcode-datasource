@@ -1,14 +1,14 @@
-/** 数据源的状态 */
+/** Datasource status */
 export enum RuntimeDataSourceStatus {
-  /** 初始状态，尚未加载 */
+  /** Initial state, not yet loaded */
   Initial = 'init',
 
-  /** 正在加载 */
+  /** Loading */
   Loading = 'loading',
 
-  /** 已加载(无错误) */
+  /** Loaded (no error) */
   Loaded = 'loaded',
 
-  /** 加载出错了 */
+  /** Load failed */
   Error = 'error',
 }

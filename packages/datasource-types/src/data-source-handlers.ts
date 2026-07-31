@@ -14,7 +14,7 @@ export type UrlParamsHandler<T = unknown> = (
 
 export type RequestHandlersMap<T = unknown> = Record<string, RequestHandler<T>>;
 
-// 仅在 type=custom 的时候生效的 handler
+// Handler that only applies when type=custom
 export type CustomRequestHandler<T = unknown> = (
   options: RuntimeOptionsConfig,
   context?: IDataSourceRuntimeContext,

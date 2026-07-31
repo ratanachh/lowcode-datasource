@@ -1,3 +1,3 @@
-# 关于此场景
+# About this scene
 
-这个是一个及其简单的场景 -- 就是直接调用 fetch，没有啥 dataHandler 之类的
+This is a very simple scene — it just calls fetch, with no dataHandler or similar.

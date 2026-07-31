@@ -1,3 +1,3 @@
-# 关于此场景
+# About this scene
 
-某些场景下 shouldFetch 的结果可以影响请求是否被发出去。
+In some scenes, the result of shouldFetch can control whether a request is issued.

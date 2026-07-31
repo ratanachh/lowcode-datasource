@@ -50,40 +50,40 @@ export const abnormalScene: Macro<
   const setState = sinon.spy(context, 'setState');
   const recordError = sinon.spy(context, 'recordError');
 
-  // 一开始应该是初始状态
+  // Should start in initial state
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Initial);
 
   const loading = context.reloadDataSource();
 
   await clock.tickAsync(50);
 
-  // 中间应该有 loading 态
+  // Should have a loading state in between
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Loading);
 
   await Promise.all([clock.runAllAsync(), loading]);
 
-  // 最后应该失败了，error 状态
+  // Should finally fail with error status
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Error);
 
-  // 检查数据源的数据
+  // Check datasource data
   t.deepEqual(context.dataSourceMap.user.data, undefined);
   t.not(context.dataSourceMap.user.error, undefined);
 
   t.regex(context.dataSourceMap.user.error!.message, new RegExp(ERROR_MSG));
 
-  // 检查状态数据
+  // Check state data
   t.assert(setState.called);
   t.deepEqual(context.state.user, undefined);
 
-  // fetchHandler 应该被调用了一次
+  // fetchHandler should have been called once
   t.assert(fetchHandler.calledOnce);
 
-  // 检查调用参数
+  // Check call arguments
   const firstListItemOptions = DATA_SOURCE_SCHEMA.list[0].options;
   const fetchHandlerCallArgs = fetchHandler.firstCall.args[0];
   t.is(firstListItemOptions.uri, fetchHandlerCallArgs.uri);
 
-  // 埋点应该也会被调用
+  // Analytics/tracking should also have been called
   t.assert(recordError.calledOnce);
   t.snapshot(recordError.firstCall.args);
 };

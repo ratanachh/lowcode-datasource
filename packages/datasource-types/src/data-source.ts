@@ -15,48 +15,49 @@ export type DataSourceOptions<TParams = Record<string, unknown>> = {
   isSync?: boolean;
 };
 
-/** 数据源的状态 */
+/** Datasource status */
 export enum RuntimeDataSourceStatus {
-  /** 初始状态，尚未加载 */
+  /** Initial state, not yet loaded */
   Initial = 'init',
 
-  /** 正在加载 */
+  /** Loading */
   Loading = 'loading',
 
-  /** 已加载(无错误) */
+  /** Loaded (no error) */
   Loaded = 'loaded',
 
-  /** 加载出错了 */
+  /** Load failed */
   Error = 'error',
 }
 
 /**
- * 运行时的数据源（对外暴露的接口）
+ * Runtime datasource (public interface)
  * @see https://yuque.antfin-inc.com/mo/spec/spec-low-code-building-schema#Jwgj5
  */
 export interface IRuntimeDataSource<TParams = unknown, TResultData = unknown> {
-  /** 当前状态(initial/loading/loaded/error) */
+  /** Current status (initial/loading/loaded/error) */
   readonly status: RuntimeDataSourceStatus;
 
-  /** 加载成功时的数据 */
+  /** Data when load succeeds */
   readonly data?: TResultData;
 
-  /** 加载出错的时候的错误信息 */
+  /** Error when load fails */
   readonly error?: Error;
 
-  /** 当前是否正在加载中 */
+  /** Whether currently loading */
   readonly isLoading?: boolean;
 
   /**
-   * 加载数据 (无论是否曾经加载过)
-   * 注意：若提供 params，则会和默认配置的参数做浅合并；否则会使用默认配置的参数。
+   * Load data (whether or not it has been loaded before).
+   * Note: if params are provided, they are shallow-merged with the default config params;
+   * otherwise the default config params are used.
    */
   load(params?: TParams): Promise<TResultData | void>;
 }
 
 /**
  * DataSourceEngineFactory
- * 用来定义 engine 的工厂函数类型
+ * Factory function type for defining the engine
  */
 export interface IRuntimeDataSourceEngineFactory {
   create(
@@ -69,11 +70,11 @@ export interface IRuntimeDataSourceEngineFactory {
   ): IDataSourceEngine;
 }
 
-// create 返回的 DataSourceEngine 定义
+// DataSourceEngine returned by create
 export interface IDataSourceEngine {
-  /** 数据源, key 是数据源的 ID */
+  /** Datasources, keyed by datasource ID */
   dataSourceMap: Record<string, IRuntimeDataSource>;
 
-  /** 重新加载所有的数据源 */
+  /** Reload all datasources */
   reloadDataSource(): Promise<void>;
 }

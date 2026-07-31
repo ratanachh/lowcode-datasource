@@ -1,9 +1,9 @@
 import { IRuntimeDataSource } from './IRuntimeDataSource';
 
 export interface IDataSourceEngine {
-  /** 数据源, key 是数据源的 ID */
+  /** Datasources, keyed by datasource ID */
   readonly dataSourceMap: Record<string, IRuntimeDataSource>;
 
-  /** 重新加载所有的数据源 */
+  /** Reload all datasources */
   reloadDataSource(): Promise<void>;
 }

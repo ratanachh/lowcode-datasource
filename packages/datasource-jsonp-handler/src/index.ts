@@ -12,7 +12,7 @@ const handleJsonpFetch = (url: string, param: string, name: string) => {
   });
 };
 
-// config 留着扩展
+// config reserved for extension
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function createJsonpHandler(config?: Record<string, unknown>) {
   // eslint-disable-next-line space-before-function-paren

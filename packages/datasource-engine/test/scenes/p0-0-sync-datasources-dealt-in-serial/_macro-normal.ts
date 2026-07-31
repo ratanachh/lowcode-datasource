@@ -50,7 +50,7 @@ export const normalScene: Macro<[
 
     const setState = sinon.spy(context, 'setState');
 
-    // 一开始应该是初始状态
+    // Should start in initial state
     t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Initial);
     t.is(context.dataSourceMap.orders.status, RuntimeDataSourceStatus.Initial);
     t.is(context.dataSourceMap.orderList.status, RuntimeDataSourceStatus.Initial);
@@ -59,7 +59,7 @@ export const normalScene: Macro<[
 
     await clock.tickAsync(50);
 
-    // 中间应该有 loading 态
+    // Should have a loading state in between
     t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Loading);
 
     await clock.tickAsync(50);
@@ -71,26 +71,26 @@ export const normalScene: Macro<[
 
     await Promise.all([clock.runAllAsync(), loading]);
 
-    // 最后应该成功了，loaded 状态
+    // Should finally succeed with loaded status
     t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Loaded);
     t.is(context.dataSourceMap.orders.status, RuntimeDataSourceStatus.Loaded);
     t.is(context.dataSourceMap.orderList.status, RuntimeDataSourceStatus.Loaded);
 
-    // 检查数据源的数据
+    // Check datasource data
     t.deepEqual(context.dataSourceMap.user.data, USER_DATA);
     t.deepEqual(context.dataSourceMap.user.error, undefined);
     t.deepEqual(context.dataSourceMap.orders.data, ORDERS_DATA);
     t.deepEqual(context.dataSourceMap.orders.error, undefined);
 
     t.assert(setState.calledThrice);
-    // 检查状态数据
+    // Check state data
     t.deepEqual(context.state.user, USER_DATA);
     t.deepEqual(context.state.orders, ORDERS_DATA);
 
-    // fetchHandler 应该被调用了3次
+    // fetchHandler should have been called 3 times
     t.assert(fetchHandler.calledThrice);
 
-    // 检查调用参数
+    // Check call arguments
     const firstListItemOptions = DATA_SOURCE_SCHEMA.list[0].options;
     const fetchHandlerCallArgs = fetchHandler.firstCall.args[0];
     // const thriceListItemOptions = DATA_SOURCE_SCHEMA.list[2].options;

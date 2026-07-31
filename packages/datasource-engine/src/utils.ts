@@ -17,7 +17,7 @@ function isObject(obj: unknown) {
 }
 
 export const transformExpression = (code: string, context: IDataSourceRuntimeContext) => {
-  // 补充异常情况兼容性
+  // Extra compatibility for edge cases
   if (code === undefined) {
     return function () {};
   }
@@ -54,7 +54,7 @@ export const getRuntimeJsValue = (value: IPublicTypeJSExpression | IPublicTypeJS
     console.error(`translate error, value is ${JSON.stringify(value)}`);
     return '';
   }
-  // TODO: 类型修复
+  // TODO: type fix
   const code = value.compiled || value.value;
   return value.type === 'JSFunction' ? transformFunction(code, context) : transformExpression(code, context);
 };
@@ -87,7 +87,7 @@ export const getRuntimeValueFromConfig = (type: string, value: CompositeValue, c
 export const buildJsonObj = (params: JSONObject | IPublicTypeJSExpression, context: IDataSourceRuntimeContext) => {
   if (isJSExpression(params)) {
     return transformExpression(params.value, context);
-  } else if (isObject(params)) { // 处理params内部为JSExpression的问题
+  } else if (isObject(params)) { // Handle JSExpression values nested inside params
     const newParams: Record<string, unknown> = {};
     for (const [name, param] of Object.entries(params)) {
       if (isJSExpression(param)) {
@@ -105,7 +105,7 @@ export const buildJsonObj = (params: JSONObject | IPublicTypeJSExpression, conte
 
 export const buildShouldFetch = (ds: InterpretDataSourceConfig, context: IDataSourceRuntimeContext) => {
   if (!ds.options || !ds.shouldFetch) {
-    return true; // 默认为 true
+    return true; // default to true
   }
   if (isJSExpression(ds.shouldFetch) || isJSFunction(ds.shouldFetch)) {
     return getRuntimeJsValue(ds.shouldFetch, context);
@@ -119,7 +119,7 @@ export const buildOptions = (ds: InterpretDataSourceConfig, context: IDataSource
   if (!options) return undefined;
   // eslint-disable-next-line space-before-function-paren
   return function () {
-    // 默认值
+    // defaults
     const fetchOptions: RuntimeOptionsConfig = {
       uri: '',
       params: {},
@@ -153,7 +153,7 @@ export const buildOptions = (ds: InterpretDataSourceConfig, context: IDataSource
           fetchOptions.v = getRuntimeValueFromConfig('string', options.v, context);
           break;
         default:
-          // 其余的除了做表达式或者 function 的转换，直接透传
+          // For remaining keys: convert expression/function if needed, otherwise pass through
           fetchOptions[key] = getRuntimeValueFromConfig('unknown', options[key], context);
       }
     });

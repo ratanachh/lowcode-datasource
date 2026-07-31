@@ -3,7 +3,7 @@ import { RuntimeOptionsConfig } from '@rchh/lowcode-datasource-types';
 import request from 'universal-request';
 import { RequestOptions, AsObject } from 'universal-request/lib/types';
 
-// config 留着扩展
+// config reserved for extension
 export function createFetchHandler(config?: Record<string, unknown>) {
   // eslint-disable-next-line space-before-function-paren
   return async function(options: RuntimeOptionsConfig) {

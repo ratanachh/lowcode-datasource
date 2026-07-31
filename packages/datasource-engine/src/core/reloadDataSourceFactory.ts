@@ -9,8 +9,8 @@ export const reloadDataSourceFactory = (
   return async () => {
     const allAsyncLoadings: Array<Promise<any>> = [];
 
-    // TODO: 那么，如果有新的类型过来，这个地方怎么处理???
-    // 单独处理 urlParams 类型的
+    // TODO: how should new types be handled here???
+    // Handle urlParams type separately
     dataSource.list
       .filter(
         (el: RuntimeDataSourceConfig) =>
@@ -25,13 +25,13 @@ export const reloadDataSourceFactory = (
       (el: RuntimeDataSourceConfig) => el.type !== 'urlParams',
     );
 
-    // 处理并行
+    // Handle parallel loads
     for (const ds of remainRuntimeDataSourceList) {
       if (!ds.options) {
         continue;
       }
       if (
-        // 需要考虑出码直接不传值的情况
+        // Consider codegen cases where the value is omitted
         isInit(ds) &&
         !ds.isSync
       ) {
@@ -39,14 +39,14 @@ export const reloadDataSourceFactory = (
       }
     }
 
-    // 处理串行
+    // Handle serial loads
     for (const ds of remainRuntimeDataSourceList) {
       if (!ds.options) {
         continue;
       }
 
       if (
-        // 需要考虑出码直接不传值的情况
+        // Consider codegen cases where the value is omitted
         isInit(ds) &&
         ds.isSync
       ) {
@@ -54,7 +54,7 @@ export const reloadDataSourceFactory = (
           // eslint-disable-next-line no-await-in-loop
           await dataSourceMap[ds.id].load();
         } catch (e) {
-          // TODO: 这个错误直接吃掉？
+          // TODO: should this error just be swallowed?
           console.error(e);
         }
       }
@@ -62,7 +62,7 @@ export const reloadDataSourceFactory = (
 
     await promiseSettled(allAsyncLoadings);
 
-    // 所有的初始化请求都结束之后，调用钩子函数
+    // After all init requests finish, invoke the hook
 
     if (dataHandler) {
       dataHandler(dataSourceMap);

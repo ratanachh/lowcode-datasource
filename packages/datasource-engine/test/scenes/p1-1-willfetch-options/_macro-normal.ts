@@ -35,19 +35,19 @@ export const normalScene: Macro<
 
   const setState = sinon.spy(context, 'setState');
 
-  // 一开始应该是初始状态
+  // Should start in initial state
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Initial);
 
   const reload = context.reloadDataSource();
 
   await clock.tickAsync(50);
 
-  // 中间应该有 loading 态
+  // Should have a loading state in between
   t.is(context.dataSourceMap.user.isLoading, true);
 
-  // TODO: 暂时不透出options，先不做deepEqual
+  // TODO: options are not exposed yet; skip deepEqual for now
 
-  // 检测参数是否正确
+  // Check that params are correct
   // t.deepEqual(context.dataSourceMap.user.options.params, {
   //   name: 'Alice',
   //   age: 8
@@ -65,8 +65,8 @@ export const normalScene: Macro<
 
   await clock.tickAsync(1500);
 
- // TODO: 暂时不透出options，先不做deepEqual
-  //   // 检测参数是否正确
+ // TODO: options are not exposed yet; skip deepEqual for now
+  //   // Check that params are correct
   // t.deepEqual(context.dataSourceMap.user.options.params, {
   //   name: 'Tom',
   //   age: 30,
@@ -75,7 +75,7 @@ export const normalScene: Macro<
 
   await Promise.all([clock.runAllAsync(), reload]);
 
-  // 最后 user 应该成功了，loaded
+  // user should finally succeed with loaded status
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Loaded);
 
 };

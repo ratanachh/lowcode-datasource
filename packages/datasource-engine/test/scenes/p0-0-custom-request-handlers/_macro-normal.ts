@@ -35,7 +35,7 @@ export const normalScene: Macro<
 
   const setState = sinon.spy(context, 'setState');
 
-  // 一开始应该是初始状态
+  // Should start in initial state
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Initial);
   t.is(context.dataSourceMap.orders.status, RuntimeDataSourceStatus.Initial);
   t.is(context.dataSourceMap.members.status, RuntimeDataSourceStatus.Initial);
@@ -44,27 +44,27 @@ export const normalScene: Macro<
 
   await clock.tickAsync(50);
 
-  // 中间应该有 loading 态
+  // Should have a loading state in between
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Loading);
 
   await clock.tickAsync(1050);
 
-  // 中间应该有 loading 态
+  // Should have a loading state in between
   t.is(context.dataSourceMap.orders.status, RuntimeDataSourceStatus.Loading);
 
   await clock.tickAsync(1050);
 
-  // members 因为没有 requestHandler 直接就挂了
+  // members fails immediately because there is no requestHandler
   t.is(context.dataSourceMap.members.status, RuntimeDataSourceStatus.Error);
 
   await Promise.all([clock.runAllAsync(), loading]);
 
-  // 最后 user 应该成功了，loaded
+  // user should finally succeed with loaded status
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Loaded);
-  // 最后 orders 应该失败了，error 状态
+  // orders should finally fail with error status
   t.is(context.dataSourceMap.orders.status, RuntimeDataSourceStatus.Error);
 
-  // 检查数据源的数据
+  // Check datasource data
   t.deepEqual(context.dataSourceMap.user.data, USER_DATA);
   t.is(context.dataSourceMap.user.error, undefined);
   t.deepEqual(context.dataSourceMap.orders.data, undefined);
@@ -74,7 +74,7 @@ export const normalScene: Macro<
   t.regex(context.dataSourceMap.orders.error!.message, new RegExp(ERROR_MSG));
   t.regex(context.dataSourceMap.members.error!.message, new RegExp('no custom handler provide'));
 
-  // 检查状态数据
+  // Check state data
   t.deepEqual(setState.callCount, 2);
   t.deepEqual(context.state.user, USER_DATA);
   t.is(context.state.orders, undefined);

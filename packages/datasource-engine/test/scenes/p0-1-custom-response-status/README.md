@@ -1,8 +1,8 @@
-# 关于此场景
+# About this scene
 
-这个是一个很常见的场景 -- 查出来的数据里面套的还有一层数据，可能有异常状态得需要处理下。
+This is a common scene — the fetched payload wraps another data layer, and error statuses may need handling.
 
-比如，期望的正常的数据应该是：
+For example, a successful response looks like:
 
 ```json
 {
@@ -13,14 +13,14 @@
 }
 ```
 
-而异常场景下，服务端会返回：
+In an error scene, the server returns:
 
 ```json
 {
   "success": false,
-  "message": "这是错误原因",
-  "code": "错误码"
+  "message": "error reason",
+  "code": "error code"
 }
 ```
 
--- 这时候期望有异常监控埋点。
+-- In that case, exception monitoring / analytics should be triggered.

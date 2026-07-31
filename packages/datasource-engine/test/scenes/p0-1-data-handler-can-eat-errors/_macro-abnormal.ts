@@ -38,35 +38,35 @@ export const abnormalScene: Macro<
 
   const setState = sinon.spy(context, 'setState');
 
-  // 一开始应该是初始状态
+  // Should start in initial state
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Initial);
 
   const loading = context.reloadDataSource();
 
   await clock.tickAsync(50);
 
-  // 中间应该有 loading 态
+  // Should have a loading state in between
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Loading);
 
   await Promise.all([clock.runAllAsync(), loading]);
 
-  // 注意 error 是会被吃掉了，还是 loaded 状态
-  // FIXME:  根据协议内容，dataHandler 返回的结果是需要抛出错误的，那么 fetchHandler 的错误难道不需要处理？
-  // TODO: 提案：request 如果挂了，不应该需要走 dataHandler 了，没有意义
+  // Note: error is swallowed, so status remains loaded
+  // FIXME: per protocol, dataHandler results that need errors should throw — should fetchHandler errors also be handled?
+  // TODO: proposal: if the request fails, skipping dataHandler may make more sense
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Error);
 
-  // 检查数据源的数据
+  // Check datasource data
   t.deepEqual(context.dataSourceMap.user.data, undefined);
   t.not(context.dataSourceMap.user.error, undefined);
   t.regex(context.dataSourceMap.user.error!.message, new RegExp(ERROR_MSG));
 
-  // 检查状态数据
+  // Check state data
   t.assert(setState.called);
 
-  // fetchHandler 会被调用到的
+  // fetchHandler should have been called
   t.assert(fetchHandler.called);
 
-  // 检查调用参数
+  // Check call arguments
   const firstListItemOptions = DATA_SOURCE_SCHEMA.list[0].options;
   const fetchHandlerCallArgs = fetchHandler.firstCall.args[0];
   t.is(firstListItemOptions.uri, fetchHandlerCallArgs.uri);

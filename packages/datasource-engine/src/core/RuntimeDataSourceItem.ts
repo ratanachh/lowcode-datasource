@@ -54,14 +54,14 @@ class RuntimeDataSourceItem<TParams extends Record<string, unknown> = Record<str
 
   async load(params?: TParams) {
     if (!this._dataSourceConfig) return;
-    // 考虑没有绑定对应的 handler 的情况
+    // Consider the case where no matching handler is bound
     if (!this._request) {
       this._error = new Error(`no ${this._dataSourceConfig.type} handler provide`);
       this._status = RuntimeDataSourceStatus.Error;
       throw this._error;
     }
 
-    // TODO: urlParams  有没有更好的处理方式
+    // TODO: urlParams — is there a better way to handle this?
     if (this._dataSourceConfig.type === 'urlParams') {
       const response = await (this._request as UrlParamsHandler<TResultData>)(this._context);
       this._context.setState({
@@ -81,16 +81,16 @@ class RuntimeDataSourceItem<TParams extends Record<string, unknown> = Record<str
       this._options = this._dataSourceConfig.options();
     }
 
-    // 考虑转换之后是 null 的场景
+    // Consider the case where options become null after transform
     if (!this._options) {
       throw new Error(`${this._dataSourceConfig.id} options transform error`);
     }
 
-    // 临时变量存，每次可能结果不一致，不做缓存
+    // Temporary locals — results may differ each time, so do not cache
     let shouldFetch = true;
     let fetchOptions = this._options;
 
-    // 如果load存在参数则采取合并的策略合并参数，合并后再一起参与shouldFetch，willFetch的计算
+    // If load has params, merge them first, then use the merged options for shouldFetch / willFetch
     if (params) {
       fetchOptions.params = merge(fetchOptions.params, params);
     }
@@ -110,7 +110,7 @@ class RuntimeDataSourceItem<TParams extends Record<string, unknown> = Record<str
       return;
     }
 
-    // willFetch, 参数为当前options，如果load有参数，则会合并到options中的params中
+    // willFetch takes current options; if load has params, they are merged into options.params
     if (this._dataSourceConfig.willFetch) {
       try {
         fetchOptions = await this._dataSourceConfig.willFetch(this._options);
@@ -122,16 +122,16 @@ class RuntimeDataSourceItem<TParams extends Record<string, unknown> = Record<str
     const dataHandler = this._dataSourceConfig.dataHandler!;
     const { errorHandler } = this._dataSourceConfig;
 
-    // 调用实际的请求，获取到对应的数据和状态后赋值给当前的 dataSource
+    // Invoke the actual request and assign data/status onto the current dataSource
     try {
       this._status = RuntimeDataSourceStatus.Loading;
 
-      // _context 会给传，但是用不用由 handler 说了算
+      // _context is always passed; whether the handler uses it is up to the handler
       const result = await (this._request as RequestHandler<{
         data: TResultData;
       }>)(fetchOptions, this._context).then(dataHandler, errorHandler);
 
-      // 结果赋值
+      // Assign result
       this._data = result;
       this._status = RuntimeDataSourceStatus.Loaded;
 

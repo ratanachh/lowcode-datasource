@@ -1,51 +1,46 @@
-## 关于 @rchh/lc-datasource-engine
+## About @rchh/lowcode-datasource-engine
 
-低代码引擎数据源核心代码
+Core datasource engine for the LowCode Engine.
 
-## doc
+## Docs
 
-[原理介绍](https://yuque.antfin-inc.com/docs/share/6ba9dab7-0712-4302-a5bb-b17d4a5f8505?# 《DataSource Engine》)
+[Design overview](https://yuque.antfin-inc.com/docs/share/6ba9dab7-0712-4302-a5bb-b17d4a5f8505?# 《DataSource Engine》)
 
+[Fetch flow](https://yuque.antfin-inc.com/docs/share/e9baef9a-3586-40fc-8708-eaeee0d7937e?# Fetch flow)
 
-[fetch流程图](https://yuque.antfin-inc.com/docs/share/e9baef9a-3586-40fc-8708-eaeee0d7937e?# 《fetch 流程》)
-
-
-## 使用
+## Usage
 
 ```ts
-// 面向运行时渲染，直接给 schema
-import { create } from '@rchh/lowcode-datasource-engine/interpret'; 
+// For runtime rendering — pass schema as-is
+import { create } from '@rchh/lowcode-datasource-engine/interpret';
 
-// 面向出码，需要给处理过后的内容
-import { create } from '@rchh/lowcode-datasource-engine/runtime'; 
+// For code generation — pass already-transformed config
+import { create } from '@rchh/lowcode-datasource-engine/runtime';
 
 import { createFetchHandler } from '@rchh/lowcode-datasource-fetch-handler';
 
 import { createMtopHandler } from '@alilc/lowcode-datasource-mtop-handler';
 
-// dataSource 可以是 schema 协议内容 或者是运行时的转化后的配置内容 （出码专用）
+// dataSource can be schema protocol content or runtime-transformed config (codegen)
 
-
-// context 上下文(setState 为必选)
+// context (setState is required)
 const dataSourceEngine = create(dataSource, context, {
-  requestHandlersMap: { // 可选参数，以下内容为当前默认的内容
+  requestHandlersMap: { // optional; defaults shown below
     urlParams: handlersMap.urlParams('?bar=1&test=2'),
     fetch: createFetchHandler,
     mtop: createMtopHandler
   },
 });
 
+console.log(dsf.dataSourceMap) // datasourceMap per protocol https://yuque.antfin-inc.com/mo/spec/spec-low-code-building-schema#QUSn5
 
-console.log(dsf.dataSourceMap) // 符合集团协议的 datasourceMap https://yuque.antfin-inc.com/mo/spec/spec-low-code-building-schema#QUSn5
+dsf.dataSourceMap['id'].load() // load
 
-dsf.dataSourceMap['id'].load() // 加载
+dsf.dataSourceMap['id'].status // status
 
-dsf.dataSourceMap['id'].status // 获取状态
+dsf.dataSourceMap['id'].data // data
 
-dsf.dataSourceMap['id'].data // 获取数据
+dsf.dataSourceMap['id'].error // error
 
-dsf.dataSourceMap['id'].error // 获取错误信息 
-
-dsf.reloadDataSource(); // 刷新所有数据源
-
+dsf.reloadDataSource(); // reload all datasources
 ```

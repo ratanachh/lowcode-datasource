@@ -1,61 +1,61 @@
-// 表达式
+// Expression
 export interface JSExpression {
   type: 'JSExpression';
   /**
-   * 表达式字符串
+   * Expression string
    */
   value: string;
   /**
-   * 模拟值
+   * Mock value
    */
   mock?: any;
-  /** 源码 */
+  /** Source code */
   compiled?: string;
 }
 
-// 函数
+// Function
 export interface JSFunction {
   type: 'JSFunction';
   /**
-   * 表达式字符串
+   * Expression string
    */
   value: string;
 }
 
 /**
- * 事件函数类型
+ * Event function type
  * @see https://yuque.antfin-inc.com/mo/spec/spec-low-code-building-schema#feHTW
  */
 export interface JSFunction {
   type: 'JSFunction';
 
   /**
-   * 函数定义，或直接函数表达式
+   * Function definition, or a direct function expression
    */
   value: string;
 
-  /** 源码 */
+  /** Source code */
   compiled?: string;
 }
 
-// 函数
+// Function
 export interface JSFunction {
   type: 'JSFunction';
   /**
-   * 函数字符串
+   * Function string
    */
   value: string;
   /**
-   * 模拟值
+   * Mock value
    */
   mock?: any;
   /**
-   * 额外扩展属性，如 extType、events
+   * Extra extension properties, e.g. extType, events
    */
   [key: string]: any;
 }
 
-// JSON 基本类型
+// JSON primitive types
 export type JSONValue =
   | boolean
   | string
@@ -69,12 +69,12 @@ export interface JSONObject {
   [key: string]: JSONValue;
 }
 
-// 复合类型
+// Composite types
 export type CompositeValue =
   | JSONValue
   | JSExpression
   | JSFunction
-  // | JSSlot // 后续这里应该要再提取一个 base types
+  // | JSSlot // Should extract a base types module later
   | CompositeArray
   | CompositeObject;
 export type CompositeArray = CompositeValue[];

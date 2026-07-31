@@ -43,33 +43,33 @@ export const normalScene: Macro<
 
   const setState = sinon.spy(context, 'setState');
 
-  // 一开始应该是初始状态
+  // Should start in initial state
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Initial);
 
   const loading = context.reloadDataSource();
 
   await clock.tickAsync(50);
 
-  // 中间应该有 loading 态
+  // Should have a loading state in between
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Loading);
 
   await Promise.all([clock.runAllAsync(), loading]);
 
-  // 最后应该成功了，loaded 状态
+  // Should finally succeed with loaded status
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Loaded);
 
-  // 检查数据源的数据
+  // Check datasource data
   t.deepEqual(context.dataSourceMap.user.data, USER_DATA);
   t.deepEqual(context.dataSourceMap.user.error, undefined);
 
-  // 检查状态数据
+  // Check state data
   t.assert(setState.callCount > 0);
   t.deepEqual(context.state.user, USER_DATA);
 
-  // fetchHandler 应该被调用了一次
+  // fetchHandler should have been called once
   t.assert(fetchHandler.calledOnce);
 
-  // 检查调用参数
+  // Check call arguments
   const firstListItemOptions = DATA_SOURCE_SCHEMA.list[0].options;
   const fetchHandlerCallArgs = fetchHandler.firstCall.args[0];
   t.is(firstListItemOptions.uri, fetchHandlerCallArgs.uri);

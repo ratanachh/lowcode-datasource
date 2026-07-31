@@ -52,34 +52,34 @@ export const normalScene: Macro<
   const setState = sinon.spy(context, 'setState');
   // const recordError = sinon.spy(context, 'recordError');
 
-  // 一开始应该是初始状态
+  // Should start in initial state
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Initial);
 
   const loading = context.reloadDataSource();
 
   await clock.tickAsync(50);
 
-  // 因为是 isInit 为 false，所以不会被加载，一直处于初始态
+  // isInit is false, so it should not load and remain in initial state
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Initial);
 
   await clock.tickAsync(50);
 
-  // 因为是 isInit 为 false，所以不会被加载，一直处于初始态
+  // isInit is false, so it should not load and remain in initial state
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Initial);
 
   await Promise.all([clock.runAllAsync(), loading]);
 
-  // 因为是 isInit 为 false，所以不会被加载，一直处于初始态
+  // isInit is false, so it should not load and remain in initial state
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Initial);
 
-  // 检查数据源的数据
+  // Check datasource data
   t.is(context.dataSourceMap.user.data, undefined);
 
-  // 检查状态数据
+  // Check state data
   t.assert(setState.notCalled);
   t.is(context.state.user, undefined);
 
-  // fetchHandler 应该未被调用
+  // fetchHandler should not have been called
   t.assert(fetchHandler.notCalled);
 };
 

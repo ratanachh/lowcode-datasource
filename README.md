@@ -1,18 +1,23 @@
-## 核心原理
+## Core design
 
-考虑之后的扩展性和兼容性，核心分为了 2 类包，一个是 **datasource-engine** ，另一个是 **datasource-engine-x-handler** ，x 的意思其实是对应数据源的 type，比如说 **datasource-engine-mtop-handler**，也就是说我们会将真正的请求工具放在 handler 里面去处理，engine 在使用的时候由使用方自身来决定需要注册哪些 handler，这样的目的有 2 个，一个是如果将所有的 handler 都放到一个包，对于端上来说这个包过大，有一些浪费资源和损耗性能的问题，另一个是如果有新的类型的数据源出现，只需要按照既定的格式去新增一个对应的 handler 处理器即可，达到了高扩展性的目的；
+For extensibility and compatibility, packages are split into two kinds: **datasource-engine** and **datasource-*-handler**. The `*` matches the datasource `type` (for example `datasource-mtop-handler`). Real request logic lives in handlers; the engine lets consumers register only the handlers they need.
+
+That design has two goals:
+
+1. Avoid shipping every handler in one oversized bundle (wasteful for clients).
+2. Support new datasource types by adding a handler that follows the existing contract.
 
 ![](https://intranetproxy.alipay.com/skylark/lark/0/2020/png/275191/1599545889374-73acbe09-3bb6-4df9-b6f9-80a86764afa2.png?x-oss-process=image%2Fresize%2Cw_720)
 
 ### DataSourceEngine
 
-* engine： engine 主要分 2 类，一类是面向 render 引擎的，可以从 engine/interpret 引入，一类是面向出码或者说直接单纯使用数据源引擎的场景，可以从 engine/runtime 引入，代码如下
+* **engine**: There are two entry points — one for the render engine (`engine/interpret`), and one for code generation / standalone runtime use (`engine/runtime`):
 
 ```js
-import { createInterpret, createRuntime } from '@rchh/lowcode-datasource-engine'; 
+import { createInterpret, createRuntime } from '@rchh/lowcode-datasource-engine';
 ```
 
-create 方法定义如下
+The `create` method is defined as:
 
 ```js
 interface IDataSourceEngineFactory {
@@ -23,11 +28,11 @@ interface IDataSourceEngineFactory {
 }
 ```
 
-create 接收三个参数，第一个是 DataSource，对于运行时渲染和出码来说，DataSource 的定义分别如下：
+`create` takes three arguments. The first is `DataSource`. For runtime rendering, the shapes are:
 
 ```js
 /**
- * 数据源对象--运行时渲染
+ * Datasource object — runtime rendering
  * @see https://yuque.antfin-inc.com/mo/spec/spec-low-code-building-schema#XMeF5
  */
 export interface DataSource {
@@ -35,7 +40,7 @@ export interface DataSource {
     dataHandler?: JSFunction;
 }
 /**
- * 数据源对象
+ * Datasource config
  * @see https://yuque.antfin-inc.com/mo/spec/spec-low-code-building-schema#XMeF5
  */
 export interface DataSourceConfig {
@@ -57,7 +62,7 @@ export interface DataSourceConfig {
 }
 ```
 
-但是对于出码来说，create 和 DataSource 定义如下：
+For code generation, `create` and `DataSource` look like this:
 
 ```js
 export interface IRuntimeDataSourceEngineFactory {
@@ -77,7 +82,7 @@ export interface RuntimeOptionsConfig {
     shouldFetch?: (options: RuntimeDataSourceConfig) => boolean;
     [option: string]: unknown;
 }
-export declare type RuntimeOptions = () => RuntimeOptionsConfig; // 考虑需要动态获取值的情况，这里在运行时会真正的转为一个 function
+export declare type RuntimeOptions = () => RuntimeOptionsConfig; // May need dynamic values; resolved to a function at runtime
 
 export interface RuntimeDataSourceConfig {
     id: string;
@@ -89,7 +94,7 @@ export interface RuntimeDataSourceConfig {
     [otherKey: string]: unknown;
 }
 /**
- * 数据源对象
+ * Datasource object
  * @see https://yuque.antfin-inc.com/mo/spec/spec-low-code-building-schema#XMeF5
  */
 export interface RuntimeDataSource {
@@ -98,52 +103,52 @@ export interface RuntimeDataSource {
 }
 ```
 
-2 者的区别还是比较明显的，一个是带 js 表达式一类的字符串，另一个是真正转为直接可以运行的 js 代码，对于出码来说，转为可执行的 js 代码的过程是出码自身负责的，对于渲染引擎来说，它只能接受到初始的 schema json 所以需要数据源引擎来做转化
+The difference is clear: interpret mode keeps JS expression strings from schema JSON; runtime mode uses executable JS. Code generation converts expressions itself; the render engine only receives schema JSON, so the datasource engine performs that conversion.
 
-* context：数据源引擎内部有一些使用了 this 的表达式，这些表达式需要求值的时候依赖上下文，因此需要将当前的上下文丢给数据源引擎，另外在 handler 里面去赋值的时候，也会用到诸如 setState 这种上下文里面的 api，当然，这个是可选的，我们后面再说。
+* **context**: Some expressions use `this` and need a runtime context to evaluate. Handlers may also call context APIs such as `setState`. Context is optional in some cases (covered later).
 
 ```js
 /**
- * 运行时上下文--暂时是参考 react，当然可以自己构建，完全没问题
+ * Runtime context — modeled after React, but you can build your own
  */
 export interface IRuntimeContext<TState extends object = Record<string, unknown>> {
-    /** 当前容器的状态 */
+    /** Current container state */
     readonly state: TState;
-    /** 设置状态(浅合并) */
+    /** Set state (shallow merge) */
     setState(state: Partial<TState>): void;
-    /** 自定义的方法 */
+    /** Custom methods */
     [customMethod: string]: any;
-    /** 数据源, key 是数据源的 ID */
+    /** Datasources keyed by datasource ID */
     dataSourceMap: Record<string, IRuntimeDataSource>;
-    /** 重新加载所有的数据源 */
+    /** Reload all datasources */
     reloadDataSource(): Promise<void>;
-    /** 页面容器 */
+    /** Page container */
     readonly page: IRuntimeContext & {
         readonly props: Record<string, unknown>;
     };
-    /** 低代码业务组件容器 */
+    /** Low-code business component container */
     readonly component: IRuntimeContext & {
         readonly props: Record<string, unknown>;
     };
 }
 ```
 
-* extraConfig：这个字段是为了留着扩展用的，除了一个必填的字段 **requestHandlersMap**
+* **extraConfig**: Reserved for extension. The required field is **requestHandlersMap**:
 
 ```js
 export declare type RequestHandler<T = unknown> = (ds: RuntimeDataSourceConfig, context: IRuntimeContext) => Promise<RequestResult<T>>;
 export declare type RequestHandlersMap = Record<string, RequestHandler>;
 ```
 
-RequestHandlersMap 是一个把数据源以及对应的数据源 handler 关联起来的桥梁，它的 key 对应的是数据源 DataSourceConfig 的 type，比如 mtop/http/jsonp ... ，每个类型的数据源在真正使用的时候会调用对应的 type-handler，并将当前的参数和上下文带给对应的 handler。
+`RequestHandlersMap` links datasource types to handlers. Keys match `DataSourceConfig.type` (for example `mtop` / `http` / `jsonp`). At runtime the matching type-handler is invoked with the current options and context.
 
-create 调用结束后，可以获取到一个 DataSourceEngine 实例
+After `create` returns, you get a `DataSourceEngine` instance:
 
 ```js
 export interface IDataSourceEngine {
-    /** 数据源, key 是数据源的 ID */
+    /** Datasources keyed by datasource ID */
     dataSourceMap: Record<string, IRuntimeDataSource>;
-    /** 重新加载所有的数据源 */
+    /** Reload all datasources */
     reloadDataSource(): Promise<void>;
 }
 ```

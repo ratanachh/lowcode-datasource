@@ -47,7 +47,7 @@ export const abnormalScene: Macro<
 
   const setState = sinon.spy(context, 'setState');
 
-  // 一开始应该是初始状态
+  // Should start in initial state
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Initial);
   t.is(context.dataSourceMap.orders.status, RuntimeDataSourceStatus.Initial);
 
@@ -55,7 +55,7 @@ export const abnormalScene: Macro<
 
   await clock.tickAsync(50);
 
-  // 中间应该有 loading 态
+  // Should have a loading state in between
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Loading);
 
   await clock.tickAsync(50);
@@ -64,29 +64,29 @@ export const abnormalScene: Macro<
 
   await Promise.all([clock.runAllAsync(), loading]);
 
-  // 最后 user 应该成功了，loaded
+  // user should finally succeed with loaded status
   t.is(context.dataSourceMap.user.status, RuntimeDataSourceStatus.Loaded);
-  // 最后 orders 应该失败了，error 状态
+  // orders should finally fail with error status
   t.is(context.dataSourceMap.orders.status, RuntimeDataSourceStatus.Error);
 
-  // 检查数据源的数据
+  // Check datasource data
   t.deepEqual(context.dataSourceMap.user.data, USER_DATA);
   t.is(context.dataSourceMap.user.error, undefined);
   t.deepEqual(context.dataSourceMap.orders.data, undefined);
   t.not(context.dataSourceMap.orders.error, undefined);
   t.regex(context.dataSourceMap.orders.error!.message, new RegExp(ERROR_MSG));
 
-  // 检查状态数据
+  // Check state data
   t.assert(setState.callCount > 0);
   t.deepEqual(context.state.user, USER_DATA);
   t.is(context.state.orders, undefined);
 
-  // fetchHandler 应该被调用了3次
+  // fetchHandler should have been called 3 times
   t.assert(fetchHandler.calledThrice);
 
   const firstListItemOptions = DATA_SOURCE_SCHEMA.list[0].options;
   const fetchHandlerCallArgs = fetchHandler.firstCall.args[0];
-  // 检查调用参数
+  // Check call arguments
   t.is(firstListItemOptions.uri, fetchHandlerCallArgs.uri);
 };
 

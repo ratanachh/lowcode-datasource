@@ -1,3 +1,3 @@
-# 关于此场景
+# About this scene
 
-有些数据源的错误可以忽略（吃掉）-- 通过 dataHandler 捕获 error，只要其不重新抛出 error 而且不返回 rejected 状态的 Promise.
+Some datasource errors can be ignored (swallowed) — by catching the error in dataHandler, as long as it does not rethrow and does not return a rejected Promise.

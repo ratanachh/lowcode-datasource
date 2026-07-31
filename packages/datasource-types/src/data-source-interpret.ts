@@ -6,7 +6,7 @@ import {
 } from './value-type';
 
 /**
- * 数据源对象
+ * Datasource object
  * @see https://yuque.antfin-inc.com/mo/spec/spec-low-code-building-schema#XMeF5
  */
 export interface InterpretDataSource {
@@ -15,7 +15,7 @@ export interface InterpretDataSource {
 }
 
 /**
- * 数据源对象
+ * Datasource object
  * @see https://yuque.antfin-inc.com/mo/spec/spec-low-code-building-schema#XMeF5
  */
 export interface InterpretDataSourceConfig {
@@ -30,7 +30,7 @@ export interface InterpretDataSourceConfig {
   shouldFetch?: JSFunction;
   options?: {
     uri: string | JSExpression;
-    api?: string | JSExpression; // 兼容
+    api?: string | JSExpression; // compatibility
     params?: JSONObject | JSExpression;
     method?: string | JSExpression;
     isCors?: boolean | JSExpression;

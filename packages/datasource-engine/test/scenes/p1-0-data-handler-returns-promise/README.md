@@ -1,3 +1,3 @@
-# 关于此场景
+# About this scene
 
-某些场景下 dataHandler 不能同步返回，比如可能需要读取某个特殊的异步的数据源并合并响应数据。
+In some scenes dataHandler cannot return synchronously — for example when it needs to read another special async datasource and merge the response data.

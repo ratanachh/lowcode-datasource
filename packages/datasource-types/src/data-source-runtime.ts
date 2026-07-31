@@ -1,7 +1,7 @@
 import { IRuntimeDataSource } from './data-source';
 import { CustomRequestHandler } from './data-source-handlers';
 
-// 先定义运行模式的类型
+// Define runtime-mode types first
 export interface RuntimeDataSource {
   list: RuntimeDataSourceConfig[];
   dataHandler?: (dataSourceMap: DataSourceMap) => void;
@@ -47,12 +47,12 @@ export interface RuntimeOptionsConfig {
   [option: string]: unknown;
 }
 
-// 可以采用 react 的 state，但是需要注意必须提供同步的 setState 功能
+// Can use React state, but a synchronous setState must be provided
 export interface IDataSourceRuntimeContext<
   TState extends Record<string, unknown> = Record<string, unknown>
 > {
-  /** 当前数据源的内容 */
+  /** Current datasource content */
   state: TState;
-  /** 设置状态(浅合并) */
+  /** Set state (shallow merge) */
   setState(state: Partial<TState>): void;
 }

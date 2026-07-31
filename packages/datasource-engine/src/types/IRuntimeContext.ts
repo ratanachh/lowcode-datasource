@@ -1,24 +1,24 @@
 import { IRuntimeDataSource } from './IRuntimeDataSource';
 
-/** 运行时上下文 */
+/** Runtime context */
 export interface IRuntimeContext<
   TState = Record<string, unknown>
 > {
-  /** 数据源, key 是数据源的 ID */
+  /** Datasources, keyed by datasource ID */
   dataSourceMap: Record<string, IRuntimeDataSource>;
 
-  /** 当前容器的状态 */
+  /** Current container state */
   readonly state: TState;
 
-  /** 设置状态(浅合并) */
+  /** Set state (shallow merge) */
   setState(state: Partial<TState>): void;
 
-  /** 重新加载所有的数据源 */
+  /** Reload all datasources */
   reloadDataSource(): Promise<void>;
 
-  /** 页面容器 */
+  /** Page container */
   readonly page: IRuntimeContext & { props: Record<string, unknown> };
 
-  /** 低代码业务组件容器 */
+  /** Low-code business component container */
   readonly component: IRuntimeContext & { props: Record<string, unknown> };
 }

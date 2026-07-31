@@ -1,3 +1,3 @@
-# 关于此场景
+# About this scene
 
-数据源的 type 可以是 `custom` 类型的， 此时需要提供 `requestHandler` 给数据源
+A datasource `type` can be `custom`, in which case a `requestHandler` must be provided for the datasource.

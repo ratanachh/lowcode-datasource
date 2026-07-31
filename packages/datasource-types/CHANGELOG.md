@@ -19,7 +19,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* 🎸 支持用户自定义defaultDataHandler,避免默认都返回了 res.data ([add3c1e](https://github.com/alibaba/lowcode-datasource/commit/add3c1e05e44e6a199f505cac3b657ba3c5e18a8))
+* 🎸 support custom defaultDataHandler so default no longer always returns res.data ([add3c1e](https://github.com/alibaba/lowcode-datasource/commit/add3c1e05e44e6a199f505cac3b657ba3c5e18a8))
 * 🎸 remove mtop & mopen packages ([f517771](https://github.com/alibaba/lowcode-datasource/commit/f517771d3832734cba06c9ca5590a054d55a6fd0))
 
 
@@ -39,7 +39,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* 🎸 提交开源版本 ([453516f](https://github.com/alibaba/lowcode-datasource/commit/453516ffcb25868a6d6f380ec8967a36bb474089))
+* 🎸 publish open-source release ([453516f](https://github.com/alibaba/lowcode-datasource/commit/453516ffcb25868a6d6f380ec8967a36bb474089))
 
 
 
@@ -50,7 +50,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Features
 
-* 🎸 提交开源版本 ([22a338a](https://github.com/alibaba/lowcode-datasource/commit/22a338a989356cc0f58b276ab3062904b5f005c3))
+* 🎸 publish open-source release ([22a338a](https://github.com/alibaba/lowcode-datasource/commit/22a338a989356cc0f58b276ab3062904b5f005c3))
 
 
 
@@ -69,12 +69,12 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* 🐛 修复参数深度合并问题 ([e1868b5](https://gitlab.alibaba-inc.com/ali-lowcode/ali-lowcode-datasource/commit/e1868b5120dffc798c6278ea016c424a536e3b2a))
+* 🐛 fix deep merge for params ([e1868b5](https://gitlab.alibaba-inc.com/ali-lowcode/ali-lowcode-datasource/commit/e1868b5120dffc798c6278ea016c424a536e3b2a))
 
 
 ### Features
 
-* 🎸 开源新包 ([16c5589](https://gitlab.alibaba-inc.com/ali-lowcode/ali-lowcode-datasource/commit/16c558982f852a009a2c48af7c84629865f0fa7f))
+* 🎸 open-source new package ([16c5589](https://gitlab.alibaba-inc.com/ali-lowcode/ali-lowcode-datasource/commit/16c558982f852a009a2c48af7c84629865f0fa7f))
 
 
 
@@ -109,7 +109,7 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* 🐛 修复load时params跟willfetch无关问题 ([83992c7](https://gitlab.alibaba-inc.com/ali-lowcode/ali-lowcode-datasource/commit/83992c7475b62e75b9f366b9282d538428d081e5))
+* 🐛 fix load params being unrelated to willFetch ([83992c7](https://gitlab.alibaba-inc.com/ali-lowcode/ali-lowcode-datasource/commit/83992c7475b62e75b9f366b9282d538428d081e5))
 
 
 
@@ -249,8 +249,8 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 ### Bug Fixes
 
-* 设计和预览两种场景下 requestHandlersMap 的接入 ([f9e5397](https://gitlab.alibaba-inc.com/ali-lowcode/ali-lowcode-engine/commit/f9e5397))
-* 修复数据源的接入问题 ([98ae1ed](https://gitlab.alibaba-inc.com/ali-lowcode/ali-lowcode-engine/commit/98ae1ed))
+* wire requestHandlersMap for design and preview ([f9e5397](https://gitlab.alibaba-inc.com/ali-lowcode/ali-lowcode-engine/commit/f9e5397))
+* fix datasource integration ([98ae1ed](https://gitlab.alibaba-inc.com/ali-lowcode/ali-lowcode-engine/commit/98ae1ed))
 
 
 

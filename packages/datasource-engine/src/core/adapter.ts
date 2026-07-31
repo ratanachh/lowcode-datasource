@@ -1,5 +1,5 @@
 import { getRuntimeValueFromConfig, getRuntimeJsValue, buildOptions, buildShouldFetch } from './../utils';
-// 将不同渠道给的 schema 转为 runtime 需要的类型
+// Convert schemas from different channels into types needed at runtime
 
 import {
   DataSourceMap,
@@ -21,7 +21,7 @@ const adapt2Runtime = (dataSource: InterpretDataSource, context: IDataSourceRunt
     ? getRuntimeJsValue(interpretDataHandler, context)
     : undefined;
 
-  // 为空判断
+  // Empty check
   if (!interpretConfigList || !interpretConfigList.length) {
     return {
       list: [],
@@ -33,8 +33,8 @@ const adapt2Runtime = (dataSource: InterpretDataSource, context: IDataSourceRunt
     const finalDataHandler = customDataHandler || defaultDataHandler;
     return {
       id: el.id,
-      isInit: getRuntimeValueFromConfig('boolean', el.isInit, context), // 默认 true
-      isSync: getRuntimeValueFromConfig('boolean', el.isSync, context), // 默认 false
+      isInit: getRuntimeValueFromConfig('boolean', el.isInit, context), // default true
+      isSync: getRuntimeValueFromConfig('boolean', el.isSync, context), // default false
       type: el.type || 'fetch',
       willFetch: el.willFetch ? getRuntimeJsValue(el.willFetch, context) : defaultWillFetch,
       shouldFetch: buildShouldFetch(el, context),
