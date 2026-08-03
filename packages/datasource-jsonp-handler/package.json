@@ -1,6 +1,6 @@
 {
   "name": "@rchh/lowcode-datasource-jsonp-handler",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "main": "lib/index.js",
   "module": "es/index.js",
   "typings": "es/index.d.ts",
@@ -27,5 +27,12 @@
   "devDependencies": {
     "@types/jsonp": "^0.2.0"
   },
-  "gitHead": "714230d68a17fc010fbe80b511802bb410188fb5"
+  "gitHead": "714230d68a17fc010fbe80b511802bb410188fb5",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ratanachh/lowcode-datasource.git",
+    "directory": "packages/datasource-jsonp-handler"
+  },
+  "homepage": "https://ratanachh.github.io/lowcode-engine/",
+  "bugs": "https://github.com/ratanachh/lowcode-datasource/issues"
 }
